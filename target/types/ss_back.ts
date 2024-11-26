@@ -118,6 +118,106 @@ export type SsBack = {
       ]
     },
     {
+      "name": "assignBuddy",
+      "discriminator": [
+        164,
+        60,
+        0,
+        208,
+        4,
+        224,
+        153,
+        211
+      ],
+      "accounts": [
+        {
+          "name": "participant",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  97,
+                  114,
+                  116,
+                  105,
+                  99,
+                  105,
+                  112,
+                  97,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "organizer"
+              },
+              {
+                "kind": "arg",
+                "path": "partyId"
+              },
+              {
+                "kind": "arg",
+                "path": "participantId"
+              }
+            ]
+          }
+        },
+        {
+          "name": "party",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  97,
+                  114,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "organizer"
+              },
+              {
+                "kind": "arg",
+                "path": "partyId"
+              }
+            ]
+          }
+        },
+        {
+          "name": "organizer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "partyId",
+          "type": "u32"
+        },
+        {
+          "name": "participantId",
+          "type": "string"
+        },
+        {
+          "name": "buddyId",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "createParty",
       "discriminator": [
         251,

@@ -96,6 +96,18 @@ pub mod ss_back {
 
         Ok(())
     }
+
+    pub fn assign_buddy(
+        ctx: Context<AssignBuddy>,
+        _party_id: u32,
+        _participant_id: String,
+        buddy_id: String,
+    ) -> Result<()> {
+        let participant = &mut ctx.accounts.participant;
+        participant.buddy_id = buddy_id.clone();
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -223,11 +235,40 @@ pub struct UpdateParticipant<'info> {
     pub system_program: Program<'info, System>,
 }
 
+#[derive(Accounts)]
+#[instruction(party_id: u32, participant_id: String)]
+pub struct AssignBuddy<'info> {
+    #[account(
+        mut,
+        seeds = [
+            PARTICIPANT_SEED.as_bytes(),
+            organizer.key().as_ref(),
+            party_id.to_le_bytes().as_ref(),
+            participant_id.as_bytes()
+        ],
+        bump,
+    )]
+    pub participant: Account<'info, Participant>,
+    #[account(
+        mut,
+        seeds = [
+            PARTY_SEED.as_bytes(),
+            organizer.key().as_ref(),
+            party_id.to_le_bytes().as_ref(),
+        ],
+        bump,
+    )]
+    pub party: Account<'info, Party>,
+    #[account(mut)]
+    pub organizer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
 #[account]
 #[derive(InitSpace)]
 pub struct Parties {
     pub count: u32,
-    #[max_len(32 * 50)]
+    #[max_len(32 * 10)]
     pub parties_list: Vec<u32>,
 }
 
@@ -241,7 +282,7 @@ pub struct Party {
     pub date: i64,
     #[max_len(20)]
     pub budget: String,
-    #[max_len(24 * 10)]
+    #[max_len(24 * 50)]
     pub participants: Vec<String>,
 }
 

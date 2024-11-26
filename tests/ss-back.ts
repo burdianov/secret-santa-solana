@@ -46,7 +46,7 @@ describe("ss-back", () => {
 
     const [partiesPkey, _partiesBump] = getPartiesAddress(organizer.publicKey, program.programId);
 
-    const tx = await program.methods.createParty(partyId, location, timestamp, budget).accounts(
+    await program.methods.createParty(partyId, location, timestamp, budget).accounts(
       {
         organizer: organizer.publicKey,
         parties: partiesPkey,
@@ -75,12 +75,11 @@ describe("ss-back", () => {
     const timestamp = new BN(Math.floor(date.getTime() / 1000));
     const budget = "USD 25";
 
-    const tx = await program.methods.updateParty(partyId, location, timestamp, budget).accounts(
+    await program.methods.updateParty(partyId, location, timestamp, budget).accounts(
       {
         organizer: organizer.publicKey
       }
     ).signers([organizer]).rpc({ commitment: "confirmed" });
-    console.log("Your transaction signature", tx);
 
     const [partyPkey, _partyBump] = getPartyAddress(organizer.publicKey, partyId, program.programId);
 
@@ -123,7 +122,7 @@ describe("ss-back", () => {
 
     const [participantPkey2, _participantBump2] = getParticipantAddress(organizer.publicKey, partyId, participantId2, program.programId);
 
-    const participant2 = await program.account.participant.fetch(participantPkey2);
+    let participant2 = await program.account.participant.fetch(participantPkey2);
     assert.deepEqual(participant2.participantId, participantId2);
     assert.equal(participant2.name, name2);
     assert.equal(participant2.email, email2);
@@ -132,16 +131,56 @@ describe("ss-back", () => {
 
     const [participantPkey3, _participantBump3] = getParticipantAddress(organizer.publicKey, partyId, participantId3, program.programId);
 
-    const participant3 = await program.account.participant.fetch(participantPkey3);
+    let participant3 = await program.account.participant.fetch(participantPkey3);
     assert.deepEqual(participant3.participantId, participantId3);
     assert.equal(participant3.name, name3);
     assert.equal(participant3.email, email3);
 
-    const party = await program.account.party.fetch(partyPkey);
+    let party = await program.account.party.fetch(partyPkey);
     assert.equal(party.participants[0], participantId1);
     assert.equal(party.participants[1], participantId2);
     assert.equal(party.participants[2], participantId3);
     assert.equal(party.participants.length, 3);
+  });
+
+  it("Updates participant", async () => {
+    await airdrop(provider.connection, organizer.publicKey);
+
+    const partyId: number = 1;
+
+    const participantId: string = makeId(24);
+    const name: string = "John Doe";
+    const email: string = "john@doe.com";
+
+    const [partyPkey, _partyBump] = getPartyAddress(organizer.publicKey, partyId, program.programId);
+
+    await addParticipant(program, organizer, partyId, partyPkey, participantId, name, email);
+
+    const [participantPkey, _participantBump] = getParticipantAddress(organizer.publicKey, partyId, participantId, program.programId);
+
+    let participant = await program.account.participant.fetch(participantPkey);
+    assert.deepEqual(participant.participantId, participantId);
+    assert.deepEqual(participant.buddyId, "");
+    assert.equal(participant.name, name);
+    assert.equal(participant.email, email);
+
+    const newName = "Peter Pan";
+    const newEmail = "peter@pan.com";
+    await updateParticipant(program, organizer, partyId, partyPkey, participantId, "", newName, newEmail);
+
+    participant = await program.account.participant.fetch(participantPkey);
+    assert.equal(participant.name, newName);
+    assert.equal(participant.email, newEmail);
+  });
+
+  it("Assigns buddies", async () => {
+    await airdrop(provider.connection, organizer.publicKey);
+
+    const partyId: number = 1;
+
+    const [partyPkey, _partyBump] = getPartyAddress(organizer.publicKey, partyId, program.programId);
+
+    let party = await program.account.party.fetch(partyPkey);
 
     const numOfParticipants = party.participants.length;
     let participantsArray: string[] = [];
@@ -154,9 +193,15 @@ describe("ss-back", () => {
 
     shuffle(shuffledArray);
 
-    // for (let i = 0; i < numOfParticipants; ++i) {
-    //   await updateParticipant(program, organizer, partyId, partyPkey, participantId1, buddy1, name1, email1);
-    // }
+    for (let i = 0; i < numOfParticipants; ++i) {
+      await assignBuddy(program, organizer, partyId, partyPkey, participantsArray[i], shuffledArray[i]);
+    }
+
+    for (let i = 0; i < numOfParticipants; ++i) {
+      let [participantPkey, _] = getParticipantAddress(organizer.publicKey, partyId, participantsArray[i], program.programId);
+      let participant = await program.account.participant.fetch(participantPkey);
+      assert.notDeepEqual(participant.participantId, participant.buddyId);
+    }
   });
 });
 
@@ -206,8 +251,17 @@ async function addParticipant(program: Program<SsBack>, organizer: Keypair, part
   ).signers([organizer]).rpc({ commitment: "confirmed" });
 }
 
-async function updateParticipant(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participant: string, buddy: string, name: string, email: string) {
-  await program.methods.updateParticipant(partyId, participant, buddy, name, email).accounts(
+async function updateParticipant(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participantId: string, buddy: string, name: string, email: string) {
+  await program.methods.updateParticipant(partyId, participantId, buddy, name, email).accounts(
+    {
+      organizer: organizer.publicKey,
+      party: partyPkey,
+    }
+  ).signers([organizer]).rpc({ commitment: "confirmed" });
+}
+
+async function assignBuddy(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participantId: string, buddyId: string) {
+  await program.methods.assignBuddy(partyId, participantId, buddyId).accounts(
     {
       organizer: organizer.publicKey,
       party: partyPkey,
