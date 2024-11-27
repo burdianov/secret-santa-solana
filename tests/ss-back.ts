@@ -21,7 +21,7 @@ describe("ss-back", () => {
   it("Initializes parties!", async () => {
     await airdrop(provider.connection, organizer.publicKey);
 
-    const tx = await program.methods.initialize().accounts(
+    const tx = await program.methods.initializeParties().accounts(
       {
         organizer: organizer.publicKey
       }

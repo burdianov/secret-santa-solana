@@ -198,11 +198,11 @@
       ],
       "args": [
         {
-          "name": "_party_id",
+          "name": "party_id",
           "type": "u32"
         },
         {
-          "name": "_participant_id",
+          "name": "participant_id",
           "type": "string"
         },
         {
@@ -304,16 +304,16 @@
       ]
     },
     {
-      "name": "initialize",
+      "name": "initialize_parties",
       "discriminator": [
-        175,
-        175,
-        109,
-        31,
-        13,
-        152,
-        155,
-        237
+        166,
+        204,
+        154,
+        205,
+        125,
+        116,
+        92,
+        108
       ],
       "accounts": [
         {
@@ -439,7 +439,7 @@
       ],
       "args": [
         {
-          "name": "_party_id",
+          "name": "party_id",
           "type": "u32"
         },
         {
@@ -511,7 +511,7 @@
       ],
       "args": [
         {
-          "name": "_party_id",
+          "name": "party_id",
           "type": "u32"
         },
         {
