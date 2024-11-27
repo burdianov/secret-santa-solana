@@ -11,7 +11,7 @@ declare_id!("2tMDoY5s3xnvZ8ma4HvvzhPqwK9fZCT2EJD6VT2RX5t5");
 pub mod ss_back {
     use super::*;
 
-    pub fn initialize_parties(ctx: Context<Initialize>) -> Result<()> {
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         instr_initialize_parties(ctx)
     }
 

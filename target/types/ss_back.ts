@@ -310,16 +310,16 @@ export type SsBack = {
       ]
     },
     {
-      "name": "initializeParties",
+      "name": "initialize",
       "discriminator": [
-        166,
-        204,
-        154,
-        205,
-        125,
-        116,
-        92,
-        108
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
       ],
       "accounts": [
         {
