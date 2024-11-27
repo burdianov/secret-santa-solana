@@ -191,7 +191,7 @@ describe("ss-back", () => {
       shuffledArray.push(party.participants[i]);
     }
 
-    shuffle(shuffledArray);
+    shuffledArray = shuffle(shuffledArray);
 
     for (let i = 0; i < numOfParticipants; ++i) {
       await assignBuddy(program, organizer, partyId, partyPkey, participantsArray[i], shuffledArray[i]);
@@ -281,14 +281,18 @@ function makeId(length: number) {
   return result;
 }
 
-function shuffle(array: string[]) {
-  let currentIndex = array.length;
-
-  while (currentIndex != 0) {
-    let randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * i);
+    if (j === i) {
+      j = i - 1;
+    }
+    [array[i], array[j]] = [array[j], array[i]];
   }
+
+  if (array[0] === 0) {
+    [array[0], array[1]] = [array[1], array[0]];
+  }
+
+  return array;
 }
