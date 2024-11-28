@@ -5,10 +5,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-ss_back = "2tMDoY5s3xnvZ8ma4HvvzhPqwK9fZCT2EJD6VT2RX5t5"
+ss_back = "46s1CHb7PQHHJJ7F3MetxcEriy9aBYD4PVb93GBe8ig2"
 
 [programs.devnet]
-ss_back = "2tMDoY5s3xnvZ8ma4HvvzhPqwK9fZCT2EJD6VT2RX5t5"
+ss_back = "46s1CHb7PQHHJJ7F3MetxcEriy9aBYD4PVb93GBe8ig2"
 
 [registry]
 url = "https://api.apr.dev"
