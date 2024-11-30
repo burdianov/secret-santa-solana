@@ -4,17 +4,17 @@
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-ss_back = "46s1CHb7PQHHJJ7F3MetxcEriy9aBYD4PVb93GBe8ig2"
-
 [programs.devnet]
-ss_back = "46s1CHb7PQHHJJ7F3MetxcEriy9aBYD4PVb93GBe8ig2"
+ss_back = "BBsq6t16qU2Bs1CCgLVWPpmPn2DhkqqCAYxFRR4pwAKx"
+
+[programs.localnet]
+ss_back = "BBsq6t16qU2Bs1CCgLVWPpmPn2DhkqqCAYxFRR4pwAKx"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
@@ -22,3 +22,5 @@ test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
 [test]
 startup_wait = 20000
+shutdown_wait = 2000
+upgradeable = false

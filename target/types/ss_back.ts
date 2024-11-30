@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/ss_back.json`.
  */
 export type SsBack = {
-  "address": "46s1CHb7PQHHJJ7F3MetxcEriy9aBYD4PVb93GBe8ig2",
+  "address": "BBsq6t16qU2Bs1CCgLVWPpmPn2DhkqqCAYxFRR4pwAKx",
   "metadata": {
     "name": "ssBack",
     "version": "0.1.0",

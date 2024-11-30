@@ -5,7 +5,7 @@ pub mod errors;
 pub mod instructions;
 pub mod states;
 
-declare_id!("46s1CHb7PQHHJJ7F3MetxcEriy9aBYD4PVb93GBe8ig2");
+declare_id!("BBsq6t16qU2Bs1CCgLVWPpmPn2DhkqqCAYxFRR4pwAKx");
 
 #[program]
 pub mod ss_back {
