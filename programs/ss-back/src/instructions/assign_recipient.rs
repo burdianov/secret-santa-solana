@@ -2,21 +2,21 @@ use anchor_lang::prelude::*;
 
 use crate::states::*;
 
-pub fn instr_assign_buddy(
-    ctx: Context<AssignBuddy>,
+pub fn instr_assign_recipient(
+    ctx: Context<AssignRecipient>,
     _party_id: u32,
     _participant_id: String,
-    buddy_id: String,
+    recipient_id: String,
 ) -> Result<()> {
     let participant = &mut ctx.accounts.participant;
-    participant.buddy_id = buddy_id.clone();
+    participant.recipient_id = recipient_id.clone();
 
     Ok(())
 }
 
 #[derive(Accounts)]
 #[instruction(party_id: u32, participant_id: String)]
-pub struct AssignBuddy<'info> {
+pub struct AssignRecipient<'info> {
     #[account(
         mut,
         seeds = [

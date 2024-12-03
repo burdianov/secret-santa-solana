@@ -114,7 +114,7 @@ describe("ss-back", () => {
 
     let participant1 = await program.account.participant.fetch(participantPkey1);
     assert.deepEqual(participant1.participantId, participantId1);
-    assert.deepEqual(participant1.buddyId, "");
+    assert.deepEqual(participant1.recipientId, "");
     assert.equal(participant1.name, name1);
     assert.equal(participant1.email, email1);
 
@@ -160,7 +160,7 @@ describe("ss-back", () => {
 
     let participant = await program.account.participant.fetch(participantPkey);
     assert.deepEqual(participant.participantId, participantId);
-    assert.deepEqual(participant.buddyId, "");
+    assert.deepEqual(participant.recipientId, "");
     assert.equal(participant.name, name);
     assert.equal(participant.email, email);
 
@@ -173,7 +173,7 @@ describe("ss-back", () => {
     assert.equal(participant.email, newEmail);
   });
 
-  it("Assigns buddies", async () => {
+  it("Assigns recipients", async () => {
     await airdrop(provider.connection, organizer.publicKey);
 
     const partyId: number = 1;
@@ -194,13 +194,13 @@ describe("ss-back", () => {
     shuffledArray = shuffle(shuffledArray);
 
     for (let i = 0; i < numOfParticipants; ++i) {
-      await assignBuddy(program, organizer, partyId, partyPkey, participantsArray[i], shuffledArray[i]);
+      await assignRecipient(program, organizer, partyId, partyPkey, participantsArray[i], shuffledArray[i]);
     }
 
     for (let i = 0; i < numOfParticipants; ++i) {
       let [participantPkey, _] = getParticipantAddress(organizer.publicKey, partyId, participantsArray[i], program.programId);
       let participant = await program.account.participant.fetch(participantPkey);
-      assert.notDeepEqual(participant.participantId, participant.buddyId);
+      assert.notDeepEqual(participant.participantId, participant.recipientId);
     }
   });
 });
@@ -251,8 +251,8 @@ async function addParticipant(program: Program<SsBack>, organizer: Keypair, part
   ).signers([organizer]).rpc({ commitment: "confirmed" });
 }
 
-async function updateParticipant(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participantId: string, buddy: string, name: string, email: string) {
-  await program.methods.updateParticipant(partyId, participantId, buddy, name, email).accounts(
+async function updateParticipant(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participantId: string, recipient: string, name: string, email: string) {
+  await program.methods.updateParticipant(partyId, participantId, recipient, name, email).accounts(
     {
       organizer: organizer.publicKey,
       party: partyPkey,
@@ -260,8 +260,8 @@ async function updateParticipant(program: Program<SsBack>, organizer: Keypair, p
   ).signers([organizer]).rpc({ commitment: "confirmed" });
 }
 
-async function assignBuddy(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participantId: string, buddyId: string) {
-  await program.methods.assignBuddy(partyId, participantId, buddyId).accounts(
+async function assignRecipient(program: Program<SsBack>, organizer: Keypair, partyId: number, partyPkey: PublicKey, participantId: string, recipientId: string) {
+  await program.methods.assignRecipient(partyId, participantId, recipientId).accounts(
     {
       organizer: organizer.publicKey,
       party: partyPkey,

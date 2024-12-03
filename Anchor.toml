@@ -14,7 +14,7 @@ ss_back = "BBsq6t16qU2Bs1CCgLVWPpmPn2DhkqqCAYxFRR4pwAKx"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

@@ -118,16 +118,16 @@ export type SsBack = {
       ]
     },
     {
-      "name": "assignBuddy",
+      "name": "assignRecipient",
       "discriminator": [
-        164,
-        60,
-        0,
-        208,
-        4,
-        224,
-        153,
-        211
+        243,
+        246,
+        34,
+        107,
+        201,
+        48,
+        183,
+        156
       ],
       "accounts": [
         {
@@ -212,7 +212,7 @@ export type SsBack = {
           "type": "string"
         },
         {
-          "name": "buddyId",
+          "name": "recipientId",
           "type": "string"
         }
       ]
@@ -453,7 +453,7 @@ export type SsBack = {
           "type": "string"
         },
         {
-          "name": "buddyId",
+          "name": "recipientId",
           "type": "string"
         },
         {
@@ -587,7 +587,7 @@ export type SsBack = {
             "type": "string"
           },
           {
-            "name": "buddyId",
+            "name": "recipientId",
             "type": "string"
           },
           {

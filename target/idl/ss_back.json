@@ -112,16 +112,16 @@
       ]
     },
     {
-      "name": "assign_buddy",
+      "name": "assign_recipient",
       "discriminator": [
-        164,
-        60,
-        0,
-        208,
-        4,
-        224,
-        153,
-        211
+        243,
+        246,
+        34,
+        107,
+        201,
+        48,
+        183,
+        156
       ],
       "accounts": [
         {
@@ -206,7 +206,7 @@
           "type": "string"
         },
         {
-          "name": "buddy_id",
+          "name": "recipient_id",
           "type": "string"
         }
       ]
@@ -447,7 +447,7 @@
           "type": "string"
         },
         {
-          "name": "buddy_id",
+          "name": "recipient_id",
           "type": "string"
         },
         {
@@ -581,7 +581,7 @@
             "type": "string"
           },
           {
-            "name": "buddy_id",
+            "name": "recipient_id",
             "type": "string"
           },
           {

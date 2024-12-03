@@ -6,14 +6,14 @@ pub fn instr_update_participant(
     ctx: Context<UpdateParticipant>,
     _party_id: u32,
     participant_id: String,
-    buddy_id: String,
+    recipient_id: String,
     name: String,
     email: String,
 ) -> Result<()> {
     let participant = &mut ctx.accounts.participant;
 
     participant.participant_id = participant_id.clone();
-    participant.buddy_id = buddy_id.clone();
+    participant.recipient_id = recipient_id.clone();
     participant.name = name;
     participant.email = email;
 

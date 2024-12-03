@@ -49,19 +49,19 @@ pub mod ss_back {
         ctx: Context<UpdateParticipant>,
         party_id: u32,
         participant_id: String,
-        buddy_id: String,
+        recipient_id: String,
         name: String,
         email: String,
     ) -> Result<()> {
-        instr_update_participant(ctx, party_id, participant_id, buddy_id, name, email)
+        instr_update_participant(ctx, party_id, participant_id, recipient_id, name, email)
     }
 
-    pub fn assign_buddy(
-        ctx: Context<AssignBuddy>,
+    pub fn assign_recipient(
+        ctx: Context<AssignRecipient>,
         party_id: u32,
         participant_id: String,
-        buddy_id: String,
+        recipient_id: String,
     ) -> Result<()> {
-        instr_assign_buddy(ctx, party_id, participant_id, buddy_id)
+        instr_assign_recipient(ctx, party_id, participant_id, recipient_id)
     }
 }

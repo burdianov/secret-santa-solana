@@ -13,5 +13,5 @@ pub mod add_participant;
 pub use update_participant::*;
 pub mod update_participant;
 
-pub use assign_buddy::*;
-pub mod assign_buddy;
+pub use assign_recipient::*;
+pub mod assign_recipient;

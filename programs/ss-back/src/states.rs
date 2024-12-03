@@ -32,7 +32,7 @@ pub struct Participant {
     #[max_len(24)]
     pub participant_id: String,
     #[max_len(24)]
-    pub buddy_id: String,
+    pub recipient_id: String,
     pub party_id: u32,
     #[max_len(50)]
     pub name: String,
