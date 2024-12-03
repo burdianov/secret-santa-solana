@@ -570,6 +570,13 @@
       ]
     }
   ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "ParticipantIdTooLong",
+      "msg": "Cannot add participant, ID too long"
+    }
+  ],
   "types": [
     {
       "name": "Participant",

@@ -576,6 +576,13 @@ export type SsBack = {
       ]
     }
   ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "participantIdTooLong",
+      "msg": "Cannot add participant, ID too long"
+    }
+  ],
   "types": [
     {
       "name": "participant",
