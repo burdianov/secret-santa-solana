@@ -16,6 +16,7 @@ pub fn instr_add_participant(
     participant.participant_id = participant_id.clone();
     participant.name = name;
     participant.email = email;
+    participant.bump = ctx.bumps.participant;
 
     party.participants.push(participant_id.clone());
     Ok(())

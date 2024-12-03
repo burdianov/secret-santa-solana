@@ -601,6 +601,10 @@ export type SsBack = {
           {
             "name": "email",
             "type": "string"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }
@@ -653,6 +657,10 @@ export type SsBack = {
             "type": {
               "vec": "string"
             }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }

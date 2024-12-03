@@ -24,6 +24,7 @@ pub fn instr_create_party(
     party.organizer = ctx.accounts.organizer.key();
     party.budget = budget;
     party.participants = Vec::new();
+    party.bump = ctx.bumps.party;
 
     parties.count = party_id;
     parties.parties_list.push(party_id);

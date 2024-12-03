@@ -24,6 +24,7 @@ pub struct Party {
     pub budget: String,
     #[max_len(24 * 50)]
     pub participants: Vec<String>,
+    pub bump: u8,
 }
 
 #[account]
@@ -38,4 +39,5 @@ pub struct Participant {
     pub name: String,
     #[max_len(50)]
     pub email: String,
+    pub bump: u8,
 }

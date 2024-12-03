@@ -595,6 +595,10 @@
           {
             "name": "email",
             "type": "string"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }
@@ -647,6 +651,10 @@
             "type": {
               "vec": "string"
             }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }
